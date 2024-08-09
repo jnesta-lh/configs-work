@@ -4,4 +4,5 @@
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-cp "/c/Users/jnesta/.bashrc" "$DIR/" && git add --all && git commit -m "updates" && git pull && git push
+cd "$DIR"
+cp "/c/Users/jnesta/.bashrc" . && git add --all && git commit -m "updates" && git pull && git push
