@@ -1,0 +1,25 @@
+{
+  "explorer.confirmDelete": false,
+  "editor.renderWhitespace": "all",
+  "editor.rulers": [100],
+  "editor.wordWrap": "on",
+  "git.openRepositoryInParentFolders": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+  "update.showReleaseNotes": false,
+  "window.title": "${activeEditorLong}${separator}${rootName}",
+  "workbench.editor.enablePreview": false, // Stop opening files in "preview" mode.
+  "workbench.startupEditor": "none", // Stop the welcome screen.
+
+  // Extension settings
+  "redhat.telemetry.enabled": true,
+
+  // File-specific settings
+  "[json][jsonc][markdown][yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[terraform][terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true
+  }
+}

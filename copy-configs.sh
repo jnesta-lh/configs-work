@@ -10,5 +10,6 @@ DST_DIR="$DIR/configs"
 
 cp "/c/Users/jnesta/.bashrc" "$DST_DIR/"
 cp "/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/Scripts/AutoHotkey.ahk" "$DST_DIR/"
+cp "/c/Users/jnesta/AppData/Roaming/Code/User/settings.json" "$DST_DIR/"
 
 git add --all && git commit -m "updates" && git pull && git push
