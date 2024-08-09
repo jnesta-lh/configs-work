@@ -80,8 +80,14 @@ alias gtc='git tag -l | xargs git tag -d && git fetch --tags; echo; echo "Curren
 
 alias r='cd /c/Users/jnesta/Repositories'
 
+# "ta" is short for "terraform apply".
+alias ta='terraform apply'
+
 # "tc" is short for "terraform clean".
 alias tc='rm -rf .terraform .terraform.lock.hcl terraform.tfstate terraform.tfstate.backup'
+
+# "td" is short for "terraform destroy".
+alias ta='terraform destroy'
 
 # "tf" is short for "terraform fmt".
 alias tf='terraform fmt'
