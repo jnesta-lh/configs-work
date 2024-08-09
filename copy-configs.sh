@@ -5,4 +5,8 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
-cp "/c/Users/jnesta/.bashrc" . && git add --all && git commit -m "updates" && git pull && git push
+
+cp "/c/Users/jnesta/.bashrc" .
+cp "/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/Scripts/AutoHotkey.ahk" .
+
+git add --all && git commit -m "updates" && git pull && git push
