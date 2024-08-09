@@ -89,5 +89,8 @@ alias tf='terraform fmt'
 # "ti" is short for "terraform init".
 alias ti='terraform init'
 
-# "ti" is short for "terraform validate".
+# "tm" is short for "terraform modules".
+alias tm='cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraform-modules'
+
+# "tv" is short for "terraform validate".
 alias tv='terraform validate'
