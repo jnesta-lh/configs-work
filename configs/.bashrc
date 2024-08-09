@@ -39,7 +39,7 @@ gc() {
     COMMIT_MSG="$*"
   fi
 
-  git add --all && git commit -m "$COMMIT_MSG" && git pull && git push
+  git add --all && git commit -m "$COMMIT_MSG" && git pull && git push && start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/commit/$(git rev-parse HEAD)"
 }
 
 alias gcm='git checkout master && git pull'
