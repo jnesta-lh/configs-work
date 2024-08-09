@@ -87,7 +87,7 @@ alias ta='terraform apply'
 alias tc='rm -rf .terraform .terraform.lock.hcl terraform.tfstate terraform.tfstate.backup'
 
 # "td" is short for "terraform destroy".
-alias ta='terraform destroy'
+alias td='terraform destroy'
 
 # "tf" is short for "terraform fmt".
 alias tf='terraform fmt'
