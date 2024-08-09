@@ -47,6 +47,10 @@
   }
 }
 
+^+5::{
+  Run(A_AppData . "\..\Local\Microsoft\WindowsApps\wt.exe")
+}
+
 ^6::{
   if (WinExist("ahk_exe Code.exe")) {
     WinActivate("ahk_exe Code.exe")

@@ -82,3 +82,12 @@ alias r='cd /c/Users/jnesta/Repositories'
 
 # "tc" is short for "terraform clean".
 alias tc='rm -rf .terraform .terraform.lock.hcl'
+
+# "tf" is short for "terraform fmt".
+alias tf='terraform fmt'
+
+# "ti" is short for "terraform init".
+alias ti='terraform init'
+
+# "ti" is short for "terraform validate".
+alias tv='terraform validate'
