@@ -42,6 +42,7 @@ gc() {
   git add --all && git commit -m "$COMMIT_MSG" && git pull && git push && start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/commit/$(git rev-parse HEAD)"
 }
 
+# "gcm" is short for "git checkout master".
 alias gcm='git checkout master && git pull'
 
 # "gco" is short for "git checkout". It requires an argument of the number corresponding to the

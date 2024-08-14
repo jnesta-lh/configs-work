@@ -55,7 +55,7 @@
   if (WinExist("ahk_exe Code.exe")) {
     WinActivate("ahk_exe Code.exe")
   } else {
-    Run(A_AppData . "\..\Programs\Microsoft VS Code\Code.exe")
+    Run(A_AppData . "\..\Local\Programs\Microsoft VS Code\Code.exe")
   }
 }
 
