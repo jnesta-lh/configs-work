@@ -71,6 +71,9 @@ gco() {
   fi
 }
 
+# "gp" is short for "git pull".
+alias gp='git pull'
+
 # "gpr" is short for "git pull request", to start a new PR based on the current branch.
 alias gpr='start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"'
 
