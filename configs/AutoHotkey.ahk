@@ -30,10 +30,10 @@
 }
 
 ^+!`::{
-  if (WinExist("ahk_exe msedge.exe")) {
-    WinActivate("ahk_exe msedge.exe")
+  if (WinExist("ahk_exe firefox.exe")) {
+    WinActivate("ahk_exe firefox.exe")
   } else {
-    Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+    Run("C:\Program Files\Mozilla Firefox\firefox.exe")
   }
 }
 
