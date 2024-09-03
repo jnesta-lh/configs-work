@@ -18,10 +18,25 @@ gb() {
   git checkout master && git pull && git checkout -b feature/jnesta/$1 && git push
 }
 
+# - "gbb" is a version of "gb" that works when the git working tree is unclean.
+gbb() {
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  if [ -z "$1" ]; then
+    echo "Error: Branch name is required. Usage: gbb <branch-name>"
+    return 1
+  fi
+
+  git checkout -b feature/jnesta/$1
+}
+
 # "gbc" is short for "git branch clean", which will remove all local branches that do not exist on
 # the remote repository.
 # https://stackoverflow.com/questions/7726949/remove-tracking-branches-no-longer-on-remote
-alias gbc='git fetch --prune --quiet && git branch -vv | awk "/: gone]/{print \$1}" | xargs --no-run-if-empty git branch --delete --force; echo; echo "Current git branches:"; git branch'
+alias gbc='git checkout master && git fetch --prune --quiet && git branch -vv | awk "/: gone]/{print \$1}" | xargs --no-run-if-empty git branch --delete --force; echo; echo "Current git branches:"; git branch'
 
 # "gbl" is short for "git branch list". (The alias of "gb" is already taken by another command.)
 alias gbl='git branch'
@@ -76,6 +91,15 @@ alias gp='git pull'
 
 # "gpr" is short for "git pull request", to start a new PR based on the current branch.
 alias gpr='start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"'
+
+# "gs" is short for "git status".
+alias gs='git status'
+
+# "gst" is short for "git stash".
+alias gst='git stash'
+
+# "gstp" is short for "git stash pop"
+alias gstp='git stash pop'
 
 # "gtc" is short for "git tags clean", which will remote all local tags that do not exist on the
 # remote repository.
