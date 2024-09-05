@@ -22,7 +22,6 @@ gb() {
     local stashed_before_branch=true
   fi
 
-  # Determine the main branch name
   if git show-ref --verify --quiet refs/heads/main; then
     local main_branch_name="main"
   elif git show-ref --verify --quiet refs/heads/master; then
@@ -32,7 +31,7 @@ gb() {
     return 1
   fi
 
-  git checkout $main_branch && git pull && git checkout -b feature/jnesta/$1 && git push
+  git checkout "$main_branch_name" && git pull && git checkout -b feature/jnesta/"$1" && git push
 
   if [ "$stashed_before_branch" = true ]; then
     git stash pop
