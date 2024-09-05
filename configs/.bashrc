@@ -15,22 +15,28 @@ gb() {
     return 1
   fi
 
-  git checkout master && git pull && git checkout -b feature/jnesta/$1 && git push
-}
+  if [ -z "$(git status --porcelain)" ]; then 
+    local stashed_before_branch=false
+  else
+    git stash push -m "Auto-stash before creating a new git branch"
+    local stashed_before_branch=true
+  fi
 
-# - "gbb" is a version of "gb" that works when the git working tree is unclean.
-gbb() {
-  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    echo "Error: Not inside a Git repository."
+  # Determine the main branch name
+  if git show-ref --verify --quiet refs/heads/main; then
+    local main_branch_name="main"
+  elif git show-ref --verify --quiet refs/heads/master; then
+    local main_branch_name="master"
+  else
+    echo "Error: There was not a \"main\" branch or \"master\" branch in this repository."
     return 1
   fi
 
-  if [ -z "$1" ]; then
-    echo "Error: Branch name is required. Usage: gbb <branch-name>"
-    return 1
-  fi
+  git checkout $main_branch && git pull && git checkout -b feature/jnesta/$1 && git push
 
-  git checkout -b feature/jnesta/$1
+  if [ "$stashed_before_branch" = true ]; then
+    git stash pop
+  fi
 }
 
 # "gbc" is short for "git branch clean", which will remove all local branches that do not exist on
@@ -91,6 +97,9 @@ alias gp='git pull'
 
 # "gpr" is short for "git pull request", to start a new PR based on the current branch.
 alias gpr='start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"'
+
+# "gpu" is short for "git push".
+alias gpu='git push'
 
 # "gs" is short for "git status".
 alias gs='git status'
