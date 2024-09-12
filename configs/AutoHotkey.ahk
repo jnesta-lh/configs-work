@@ -37,6 +37,14 @@
   }
 }
 
+^1::{
+  if (WinExist("ahk_exe brave.exe")) {
+    WinActivate("ahk_exe brave.exe")
+  } else {
+    Run("C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe")
+  }
+}
+
 ^5::{
   ; "wt.exe" is not the real process name:
   ; https://stackoverflow.com/a/68006153/26408392

@@ -1,4 +1,15 @@
+# Locally running Terraform requires the "ARM_SUBSCRIPTION_ID" environment variable to be set.
+export ARM_SUBSCRIPTION_ID="59161e1f-62f6-456e-93d6-162d6f3c6d91" # LH-Sandbox-Infra-001 
+
+# Terraform auto-complete.
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
+
+# asdf
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
+# "ga" is short for "git add all".
+alias ga='git add -A'
 
 # - "gb" is short for creating a new git branch, which is a common coding task.
 # - We can't use a positional argument in an alias, so we create a function instead.
@@ -61,6 +72,9 @@ gc() {
 
   git add --all && git commit -m "$COMMIT_MSG" && git pull && git push && start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/commit/$(git rev-parse HEAD)"
 }
+
+# "gd" is shrot for "git diff".
+alias gd='git diff'
 
 # "gcm" is short for "git checkout master".
 alias gcm='git checkout master && git pull'
