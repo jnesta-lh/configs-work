@@ -52,7 +52,26 @@ gb() {
 # "gbc" is short for "git branch clean", which will remove all local branches that do not exist on
 # the remote repository.
 # https://stackoverflow.com/questions/7726949/remove-tracking-branches-no-longer-on-remote
-alias gbc='git checkout master && git fetch --prune --quiet && git branch -vv | awk "/: gone]/{print \$1}" | xargs --no-run-if-empty git branch --delete --force; echo; echo "Current git branches:"; git branch'
+gbc() {
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  if git show-ref --verify --quiet refs/heads/main; then
+    local main_branch_name="main"
+  elif git show-ref --verify --quiet refs/heads/master; then
+    local main_branch_name="master"
+  else
+    echo "Error: There was not a \"main\" branch or \"master\" branch in this repository."
+    return 1
+  fi
+
+  git checkout "$main_branch_name" && git fetch --prune --quiet && git branch -vv | awk "/: gone]/{print \$1}" | xargs --no-run-if-empty git branch --delete --force
+  echo
+  echo "Current git branches:"
+  git branch
+}
 
 # "gbl" is short for "git branch list". (The alias of "gb" is already taken by another command.)
 alias gbl='git branch'
@@ -76,8 +95,24 @@ gc() {
 # "gd" is shrot for "git diff".
 alias gd='git diff'
 
-# "gcm" is short for "git checkout master".
-alias gcm='git checkout master && git pull'
+# "gcm" is short for "git checkout main".
+gcm() {
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  if git show-ref --verify --quiet refs/heads/main; then
+    local main_branch_name="main"
+  elif git show-ref --verify --quiet refs/heads/master; then
+    local main_branch_name="master"
+  else
+    echo "Error: There was not a \"main\" branch or \"master\" branch in this repository."
+    return 1
+  fi
+
+  git checkout "$main_branch_name" && git pull
+}
 
 # "gco" is short for "git checkout". It requires an argument of the number corresponding to the
 # alphbetical local branch.
