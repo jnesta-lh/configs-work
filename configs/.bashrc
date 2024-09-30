@@ -4,12 +4,15 @@ export ARM_SUBSCRIPTION_ID="59161e1f-62f6-456e-93d6-162d6f3c6d91" # LH-Sandbox-I
 # Terraform auto-complete.
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
 
+# Terragrunt auto-complete.
+complete -C C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe terragrunt
+
 # asdf
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 
-# "ga" is short for "git add all".
-alias ga='git add -A'
+# "ga" is short for "git add --all".
+alias ga='git add --all'
 
 # - "gb" is short for creating a new git branch, which is a common coding task.
 # - We can't use a positional argument in an alias, so we create a function instead.
@@ -115,7 +118,8 @@ gc() (
     local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
   elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
     local repo_name=$(git rev-parse --show-toplevel | xargs basename)
-    local commit_url="https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$repo_name/commit/$commit_sha1"
+    local org_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
+    local commit_url="https://azuredevops.logixhealth.com/LogixHealth/$org_name/_git/$repo_name/commit/$commit_sha1"
   else
     echo "Failed to parse the remote URL for this repository."
     return 1
@@ -159,10 +163,21 @@ gco() (
     return 1
   fi
 
+  if git show-ref --verify --quiet refs/heads/main; then
+    local main_branch_name="main"
+  elif git show-ref --verify --quiet refs/heads/master; then
+    local main_branch_name="master"
+  else
+    echo "Error: There was not a \"main\" branch or \"master\" branch in this repository."
+    return 1
+  fi
+
   if [[ "$1" =~ ^[0-9]+$ ]]; then
-    # First, switch to master so that the below command will not have an asterick next to the
-    # feature branches.
-    git checkout master
+    # First, switch to the main branch so that the below command will not have an asterick next to
+    # the feature branches.
+    if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
+      git checkout "$main_branch_name"
+    fi
 
     local branch_number=$1
     local selected_branch=$(git branch | grep -v '^*' | sort | sed -n "${branch_number}p" | tr -d ' ')
@@ -181,7 +196,16 @@ gco() (
 alias gp='git pull'
 
 # "gpr" is short for "git pull request", to start a new PR based on the current branch.
-alias gpr='start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"'
+gpr() (
+  set -euo pipefail # Exit on errors and undefined variables.
+
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"
+)
 
 # "gpu" is short for "git push".
 alias gpu='git push'
