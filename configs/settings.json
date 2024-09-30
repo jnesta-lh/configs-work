@@ -22,7 +22,8 @@
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[javascript][typescript][javascriptreact][typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   }
 }
