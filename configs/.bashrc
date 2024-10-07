@@ -271,5 +271,10 @@ alias tm='cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraf
 # "tv" is short for "terraform validate".
 alias tv='terraform validate'
 
+# npm run shortcuts
+alias b='npm run build'
+alias l='npm run lint'
+alias t='npm run test'
+
 # Load environment variables.
 source .env
