@@ -1,6 +1,3 @@
-# Locally running Terraform requires the "ARM_SUBSCRIPTION_ID" environment variable to be set.
-export ARM_SUBSCRIPTION_ID="59161e1f-62f6-456e-93d6-162d6f3c6d91" # LH-Sandbox-Infra-001 
-
 # Terraform auto-complete.
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
 
@@ -238,6 +235,19 @@ gtc() (
   git tag
 )
 
+# "p" is short for "pulumi".
+alias p='pulumi'
+
+# "pu" is short for "pulumi up".
+alias pu='pulumi up'
+
+# "pd" is short for "pulumi destroy".
+alias pd='pulumi destroy'
+
+# "pr" is short for "pulumi refresh".
+alias pr='pulumi refresh'
+
+# "r" is short for switching to the repositories directory.
 alias r='cd /c/Users/jnesta/Repositories'
 
 # "ta" is short for "terraform apply".
@@ -260,3 +270,6 @@ alias tm='cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraf
 
 # "tv" is short for "terraform validate".
 alias tv='terraform validate'
+
+# Load environment variables.
+source .env
