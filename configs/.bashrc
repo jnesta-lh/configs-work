@@ -114,8 +114,8 @@ gc() (
     local repo_name=$(echo "$repo_info" | cut -d' ' -f2)
     local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
   elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
-    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
     local org_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
+    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
     local commit_url="https://azuredevops.logixhealth.com/LogixHealth/$org_name/_git/$repo_name/commit/$commit_sha1"
   else
     echo "Failed to parse the remote URL for this repository."
@@ -201,7 +201,21 @@ gpr() (
     return 1
   fi
 
-  start chrome "https://azuredevops.logixhealth.com/LogixHealth/Infrastructure/_git/$(git rev-parse --show-toplevel | xargs basename)/pullrequestcreate?sourceRef=$(git branch --show-current)"
+  local remote_url=$(git config --get remote.origin.url)
+  if echo "$remote_url" | grep -q "github.com"; then
+    echo "TODO: add GitHub logic"
+    return 1
+  elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
+    local org_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
+    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
+    local branch_name=$(git branch --show-current)
+    local pr_url="https://azuredevops.logixhealth.com/LogixHealth/$org_name/_git/$repo_name/pullrequestcreate?sourceRef=$branch_name"
+  else
+    echo "Failed to parse the remote URL for this repository."
+    return 1
+  fi
+
+  start chrome "$pr_url"
 )
 
 # "gpu" is short for "git push".
