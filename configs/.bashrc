@@ -23,7 +23,7 @@ gb() (
     return 1
   fi
 
-  if [ -z "$1" ]; then
+  if [ -z "${1:-}" ]; then
     echo "Error: Branch name is required. Usage: gb <branch-name>"
     return 1
   fi
