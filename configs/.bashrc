@@ -44,7 +44,10 @@ gb() (
     return 1
   fi
 
-  git checkout "$main_branch_name"
+  if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
+    git checkout "$main_branch_name"
+  fi
+
   git pull
   git checkout -b feature/jnesta/"$1"
   git push
@@ -74,7 +77,10 @@ gbc() (
     return 1
   fi
 
-  git checkout "$main_branch_name"
+  if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
+    git checkout "$main_branch_name"
+  fi
+
   git fetch --prune --quiet
   git branch -vv | awk "/: gone]/{print \$1}" | xargs --no-run-if-empty git branch --delete --force
 
@@ -147,8 +153,12 @@ gcm() (
     return 1
   fi
 
-  git checkout "$main_branch_name"
+  if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
+    git checkout "$main_branch_name"
+  fi
+
   git pull
+  gbc # git branch clean
 )
 
 # "gco" is short for "git checkout". It requires an argument of the number corresponding to the
