@@ -117,7 +117,7 @@ gc() (
     local organization_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-3)}')
     local project_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
     local repo_name=$(git rev-parse --show-toplevel | xargs basename)
-    local commit_url="https://azuredevops.logixhealth.com/$orgnization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
+    local commit_url="https://azuredevops.logixhealth.com/$organization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
   else
     echo "Failed to parse the remote URL for this repository."
     return 1
