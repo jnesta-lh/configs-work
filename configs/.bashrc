@@ -28,7 +28,7 @@ gb() (
     return 1
   fi
 
-  if [ -z "$(git status --porcelain)" ]; then 
+  if [ -z "$(git status --porcelain)" ]; then
     local stashed_before_branch=false
   else
     git stash push -m "Auto-stash before creating a new git branch"
@@ -300,6 +300,7 @@ alias tv='terraform validate'
 # npm run shortcuts
 alias b='npm run build'
 alias l='npm run lint'
+alias s='npm run start'
 alias t='npm run test'
 
 # Load environment variables.
