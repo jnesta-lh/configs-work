@@ -200,6 +200,9 @@ gco() (
   fi
 )
 
+# "gl" is short for "git log".
+alias gl='git log'
+
 # "gp" is short for "git pull".
 alias gp='git pull'
 
