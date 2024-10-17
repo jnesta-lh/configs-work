@@ -158,6 +158,7 @@ gcm() (
   fi
 
   git pull
+  echo # Make the cleaned branches easier to see.
   gbc # git branch clean
 )
 
