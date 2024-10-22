@@ -1,3 +1,6 @@
+# Fix self-signed certs with Node.js applications.
+export NODE_EXTRA_CA_CERTS="/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/TLS/BEDROOTCA001.cer"
+
 # Terraform auto-complete.
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
 
