@@ -4,6 +4,7 @@
   "editor.rulers": [100],
   "editor.wordWrap": "on",
   "git.openRepositoryInParentFolders": "never",
+  "security.allowedUNCHosts": ["wsl$"],
   "security.workspace.trust.untrustedFiles": "open",
   "update.showReleaseNotes": false,
   "window.title": "${activeEditorLong}${separator}${rootName}",
@@ -25,8 +26,5 @@
   "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
-  },
-  "security.allowedUNCHosts": [
-    "wsl$"
-  ]
+  }
 }
