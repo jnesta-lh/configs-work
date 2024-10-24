@@ -1,6 +1,9 @@
 # Fix self-signed certs with Node.js applications.
 export NODE_EXTRA_CA_CERTS="/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/TLS/BEDROOTCA001.cer"
 
+# Bitwarden CLI
+export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
+
 # Terraform auto-complete.
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
 
@@ -237,11 +240,8 @@ gpr() (
   start chrome "$pr_url"
 )
 
-# "gpu" is short for "git push".
-alias gpu='git push'
-
 # "gs" is short for "git status".
-alias gs='git status'
+alias gs='git status --porcelain'
 
 # "gst" is short for "git stash".
 alias gst='git stash'
@@ -267,6 +267,9 @@ gtc() (
   echo "Current git tags:"
   git tag
 )
+
+# "gu" is short for "git push".
+alias gu='git push'
 
 # "p" is short for "pulumi".
 alias p='pulumi'
@@ -309,6 +312,7 @@ alias b='npm run build'
 alias l='npm run lint'
 alias s='npm run start'
 alias t='npm run test'
+alias u='npm run update'
 
 # Load environment variables.
 source .env
