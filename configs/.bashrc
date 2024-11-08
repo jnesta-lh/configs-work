@@ -8,7 +8,7 @@ export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZ
 complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
 
 # Terragrunt auto-complete.
-complete -C C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe terragrunt
+complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe' terragrunt
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
@@ -51,11 +51,11 @@ gb() (
   fi
 
   if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
-    git checkout "$main_branch_name"
+    git switch "$main_branch_name"
   fi
 
   git pull
-  git checkout -b feature/jnesta/"$1"
+  git switch -c feature/jnesta/"$1"
   git push
 
   if [ "$stashed_before_branch" = true ]; then
@@ -84,7 +84,7 @@ gbc() (
   fi
 
   if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
-    git checkout "$main_branch_name"
+    git switch "$main_branch_name"
   fi
 
   git fetch --prune --quiet
@@ -118,24 +118,7 @@ gc() (
   git pull
   git push
 
-  local commit_sha1=$(git rev-parse HEAD)
-  local remote_url=$(git config --get remote.origin.url)
-  if echo "$remote_url" | grep -q "github.com"; then
-    local repo_info=$(echo "$remote_url" | sed -E 's/.*github\.com[:/]([^/]+)\/([^.]+)(\.git)?$/\1 \2/')
-    local owner=$(echo "$repo_info" | cut -d' ' -f1)
-    local repo_name=$(echo "$repo_info" | cut -d' ' -f2)
-    local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
-  elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
-    local organization_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-3)}')
-    local project_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
-    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
-    local commit_url="https://azuredevops.logixhealth.com/$organization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
-  else
-    echo "Failed to parse the remote URL for this repository."
-    return 1
-  fi
-
-  start chrome "$commit_url"
+  gsc
 )
 
 # "gd" is shrot for "git diff".
@@ -160,7 +143,7 @@ gcm() (
   fi
 
   if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
-    git checkout "$main_branch_name"
+    git switch "$main_branch_name"
   fi
 
   git pull
@@ -191,24 +174,53 @@ gco() (
     # First, switch to the main branch so that the below command will not have an asterick next to
     # the feature branches.
     if [[ "$(git branch --show-current)" != "$main_branch_name" ]]; then
-      git checkout "$main_branch_name"
+      git switch "$main_branch_name"
     fi
 
     local branch_number=$1
     local selected_branch=$(git branch | grep -v '^*' | sort | sed -n "${branch_number}p" | tr -d ' ')
     if [ -n "$selected_branch" ]; then
-      git checkout "$selected_branch"
+      git switch "$selected_branch"
     else
       echo "Error: Branch number $branch_number does not exist."
       return 1
     fi
   else
-    git checkout "$@"
+    git switch "$@"
   fi
 )
 
 # "gl" is short for "git log".
 alias gl='git log'
+
+# "gsc" is short for "git show last commit".
+gsc() (
+  set -euo pipefail # Exit on errors and undefined variables.
+
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  local commit_sha1=$(git rev-parse HEAD)
+  local remote_url=$(git config --get remote.origin.url)
+  if echo "$remote_url" | grep -q "github.com"; then
+    local repo_info=$(echo "$remote_url" | sed -E 's/.*github\.com[:/]([^/]+)\/([^.]+)(\.git)?$/\1 \2/')
+    local owner=$(echo "$repo_info" | cut -d' ' -f1)
+    local repo_name=$(echo "$repo_info" | cut -d' ' -f2)
+    local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
+  elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
+    local organization_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-3)}')
+    local project_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
+    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
+    local commit_url="https://azuredevops.logixhealth.com/$organization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
+  else
+    echo "Failed to parse the remote URL for this repository."
+    return 1
+  fi
+
+  start chrome "$commit_url"
+)
 
 # "gp" is short for "git pull".
 alias gp='git pull'
