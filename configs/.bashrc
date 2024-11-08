@@ -95,10 +95,11 @@ gbc() (
   git branch
 )
 
-# "gbl" is short for "git branch list". (The alias of "gb" is already taken by another command.)
+# "gbl" is short for "git branch list". ("gb" is already taken by another command.)
 alias gbl='git branch'
 
-# "gc" is short for making a commit.
+# "gc" is short for "git commit", which will perform all the steps involved in making a new commit
+# with all unstaged changes.
 gc() (
   set -euo pipefail # Exit on errors and undefined variables.
 
@@ -118,14 +119,46 @@ gc() (
   git pull
   git push
 
-  gsc
+  gcs
+)
+
+# "gcs" is short for "git commit show", which will open a browser to view the last commit.
+gcs() (
+  set -euo pipefail # Exit on errors and undefined variables.
+
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  local commit_sha1=$(git rev-parse HEAD)
+  local remote_url=$(git config --get remote.origin.url)
+  if echo "$remote_url" | grep -q "github.com"; then
+    local repo_info=$(echo "$remote_url" | sed -E 's/.*github\.com[:/]([^/]+)\/([^.]+)(\.git)?$/\1 \2/')
+    local owner=$(echo "$repo_info" | cut -d' ' -f1)
+    local repo_name=$(echo "$repo_info" | cut -d' ' -f2)
+    local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
+  elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
+    local organization_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-3)}')
+    local project_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
+    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
+    local commit_url="https://azuredevops.logixhealth.com/$organization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
+  else
+    echo "Failed to parse the remote URL for this repository."
+    return 1
+  fi
+
+  start chrome "$commit_url"
 )
 
 # "gd" is shrot for "git diff".
 alias gd='git diff'
 
-# "gcm" is short for "git checkout main".
-gcm() (
+# "gl" is short for "git log".
+alias gl='git log'
+
+# "gsm" is short for "git switch main".
+gsm() (
   set -euo pipefail # Exit on errors and undefined variables.
 
   if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
@@ -151,9 +184,9 @@ gcm() (
   gbc # git branch clean
 )
 
-# "gco" is short for "git checkout". It requires an argument of the number corresponding to the
-# alphbetical local branch.
-gco() (
+# "gsw" is short for "git switch". It requires an argument of the number corresponding to the
+# alphbetical local branch. ("gs" is already taken by another command.)
+gsw() (
   set -euo pipefail # Exit on errors and undefined variables.
 
   if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
@@ -188,38 +221,6 @@ gco() (
   else
     git switch "$@"
   fi
-)
-
-# "gl" is short for "git log".
-alias gl='git log'
-
-# "gsc" is short for "git show last commit".
-gsc() (
-  set -euo pipefail # Exit on errors and undefined variables.
-
-  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    echo "Error: Not inside a Git repository."
-    return 1
-  fi
-
-  local commit_sha1=$(git rev-parse HEAD)
-  local remote_url=$(git config --get remote.origin.url)
-  if echo "$remote_url" | grep -q "github.com"; then
-    local repo_info=$(echo "$remote_url" | sed -E 's/.*github\.com[:/]([^/]+)\/([^.]+)(\.git)?$/\1 \2/')
-    local owner=$(echo "$repo_info" | cut -d' ' -f1)
-    local repo_name=$(echo "$repo_info" | cut -d' ' -f2)
-    local commit_url="https://github.com/$owner/$repo_name/commit/$commit_sha1"
-  elif echo "$remote_url" | grep -q "azuredevops.logixhealth.com"; then
-    local organization_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-3)}')
-    local project_name=$(echo "$remote_url" | awk -F'/' '{print $(NF-2)}')
-    local repo_name=$(git rev-parse --show-toplevel | xargs basename)
-    local commit_url="https://azuredevops.logixhealth.com/$organization_name/$project_name/_git/$repo_name/commit/$commit_sha1"
-  else
-    echo "Failed to parse the remote URL for this repository."
-    return 1
-  fi
-
-  start chrome "$commit_url"
 )
 
 # "gp" is short for "git pull".
