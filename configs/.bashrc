@@ -14,6 +14,9 @@ complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.T
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 
+# A better "ll" alias that shows hidden files.
+alias ll="ls -la"
+
 # "ga" is short for "git add --all".
 alias ga='git add --all'
 
