@@ -331,4 +331,4 @@ alias t='npm run test'
 alias u='npm run update'
 
 # Load environment variables.
-source .env
+source ~/.env

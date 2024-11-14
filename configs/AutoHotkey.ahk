@@ -45,6 +45,14 @@
   }
 }
 
+^4::{
+  if (WinExist("ahk_exe kitty_portable.exe")) {
+    WinActivate("ahk_exe kitty_portable.exe")
+  } else {
+    Run("C:\Users\jnesta\OneDrive - LogixHealth Inc\Documents\KiTTY\kitty_portable.exe")
+  }
+}
+
 ^5::{
   ; "wt.exe" is not the real process name:
   ; https://stackoverflow.com/a/68006153/26408392
