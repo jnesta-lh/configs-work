@@ -13,6 +13,7 @@
 
   // Extension settings
   "redhat.telemetry.enabled": true,
+  "cSpell.useCustomDecorations": false,
 
   // File-specific settings
   "[json][jsonc][markdown][yaml]": {

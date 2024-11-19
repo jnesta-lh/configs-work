@@ -1,5 +1,5 @@
 # Fix self-signed certs with Node.js applications.
-export NODE_EXTRA_CA_CERTS="/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/TLS/BEDROOTCA001.cer"
+export NODE_EXTRA_CA_CERTS="C:\\tls\\BEDROOTCA001.crt"
 
 # Bitwarden CLI
 export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
