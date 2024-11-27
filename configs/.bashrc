@@ -5,10 +5,10 @@ export NODE_EXTRA_CA_CERTS="C:\\tls\\BEDROOTCA001.crt"
 export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
 
 # Terraform auto-complete.
-complete -C "C:\Users\$USERNAME\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe" terraform.exe
+complete -C "C:\\Users\\$USERNAME\\AppData\Local\\Microsoft\\WinGet\\Packages\\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\\terraform.exe" terraform.exe
 
 # Terragrunt auto-complete.
-complete -C "C:\Users\$USERNAME\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe" terragrunt
+complete -C "C:\\Users\\$USERNAME\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\\terragrunt.exe" terragrunt
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
