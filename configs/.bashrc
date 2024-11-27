@@ -5,10 +5,10 @@ export NODE_EXTRA_CA_CERTS="C:\\tls\\BEDROOTCA001.crt"
 export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
 
 # Terraform auto-complete.
-complete -C "C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe" terraform.exe
+complete -C "C:\Users\$USERNAME\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe" terraform.exe
 
 # Terragrunt auto-complete.
-complete -C "C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe" terragrunt
+complete -C "C:\Users\$USERNAME\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe" terragrunt
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
@@ -58,7 +58,7 @@ gb() (
   fi
 
   git pull
-  git switch -c feature/jnesta/"$1"
+  git switch -c "feature/$USERNAME/$1"
   git push
 
   if [ "$stashed_before_branch" = true ]; then
@@ -308,7 +308,7 @@ alias pd="pulumi destroy"
 alias pr="pulumi refresh"
 
 # "r" is short for switching to the repositories directory.
-alias r="cd /c/Users/jnesta/Repositories"
+alias r="cd /c/Users/$USERNAME/Repositories"
 
 # "ta" is short for "terraform apply".
 alias ta="terraform apply"
@@ -326,7 +326,7 @@ alias tf="terraform fmt"
 alias ti="terraform init"
 
 # "tm" is short for "terraform modules".
-alias tm="cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraform-modules"
+alias tm="cd /c/Users/$USERNAME/Repositories/infrastructure/0_Global_Library/terraform-modules"
 
 # "tv" is short for "terraform validate".
 alias tv="terraform validate"
