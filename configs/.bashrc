@@ -5,10 +5,10 @@ export NODE_EXTRA_CA_CERTS="C:\\tls\\BEDROOTCA001.crt"
 export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
 
 # Terraform auto-complete.
-complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe' terraform.exe
+complete -C "C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\terraform.exe" terraform.exe
 
 # Terragrunt auto-complete.
-complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe' terragrunt
+complete -C "C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\terragrunt.exe" terragrunt
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
@@ -18,7 +18,7 @@ complete -C 'C:\Users\jnesta\AppData\Local\Microsoft\WinGet\Packages\Gruntwork.T
 alias ll="ls -la"
 
 # "ga" is short for "git add --all".
-alias ga='git add --all'
+alias ga="git add --all"
 
 # - "gb" is short for creating a new git branch, which is a common coding task.
 # - We can't use a positional argument in an alias, so we create a function instead.
@@ -99,7 +99,7 @@ gbc() (
 )
 
 # "gbl" is short for "git branch list". ("gb" is already taken by another command.)
-alias gbl='git branch'
+alias gbl="git branch"
 
 # "gc" is short for "git commit", which will perform all the steps involved in making a new commit
 # with all unstaged changes.
@@ -151,14 +151,18 @@ gcs() (
     return 1
   fi
 
-  start chrome "$commit_url"
+  if [[ ${BROWSER:-} == "chrome" ]]; then
+    start chrome "$commit_url"
+  else
+    start microsoft-edge:"$commit_url"
+  fi
 )
 
 # "gd" is shrot for "git diff".
-alias gd='git diff'
+alias gd="git diff"
 
 # "gl" is short for "git log".
-alias gl='git log'
+alias gl="git log"
 
 # "gsm" is short for "git switch main".
 gsm() (
@@ -227,7 +231,7 @@ gsw() (
 )
 
 # "gp" is short for "git pull".
-alias gp='git pull'
+alias gp="git pull"
 
 # "gpr" is short for "git pull request", to start a new PR based on the current branch.
 gpr() (
@@ -253,17 +257,21 @@ gpr() (
     return 1
   fi
 
-  start chrome "$pr_url"
+  if [[ ${BROWSER:-} == "chrome" ]]; then
+    start chrome "$pr_url"
+  else
+    start microsoft-edge:"$pr_url"
+  fi
 )
 
 # "gs" is short for "git status".
-alias gs='git status --porcelain'
+alias gs="git status --porcelain"
 
 # "gst" is short for "git stash".
-alias gst='git stash'
+alias gst="git stash"
 
 # "gstp" is short for "git stash pop"
-alias gstp='git stash pop'
+alias gstp="git stash pop"
 
 # "gtc" is short for "git tags clean", which will remote all local tags that do not exist on the
 # remote repository.
@@ -285,50 +293,50 @@ gtc() (
 )
 
 # "gu" is short for "git push".
-alias gu='git push'
+alias gu="git push"
 
 # "p" is short for "pulumi".
-alias p='pulumi'
+alias p="pulumi"
 
 # "pu" is short for "pulumi up".
-alias pu='pulumi up'
+alias pu="pulumi up"
 
 # "pd" is short for "pulumi destroy".
-alias pd='pulumi destroy'
+alias pd="pulumi destroy"
 
 # "pr" is short for "pulumi refresh".
-alias pr='pulumi refresh'
+alias pr="pulumi refresh"
 
 # "r" is short for switching to the repositories directory.
-alias r='cd /c/Users/jnesta/Repositories'
+alias r="cd /c/Users/jnesta/Repositories"
 
 # "ta" is short for "terraform apply".
-alias ta='terraform apply'
+alias ta="terraform apply"
 
 # "tc" is short for "terraform clean".
-alias tc='rm -rf .terraform .terraform.lock.hcl terraform.tfstate terraform.tfstate.backup'
+alias tc="rm -rf .terraform .terraform.lock.hcl terraform.tfstate terraform.tfstate.backup"
 
 # "td" is short for "terraform destroy".
-alias td='terraform destroy'
+alias td="terraform destroy"
 
 # "tf" is short for "terraform fmt".
-alias tf='terraform fmt'
+alias tf="terraform fmt"
 
 # "ti" is short for "terraform init".
-alias ti='terraform init'
+alias ti="terraform init"
 
 # "tm" is short for "terraform modules".
-alias tm='cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraform-modules'
+alias tm="cd /c/Users/jnesta/Repositories/infrastructure/0_Global_Library/terraform-modules"
 
 # "tv" is short for "terraform validate".
-alias tv='terraform validate'
+alias tv="terraform validate"
 
 # npm run shortcuts
-alias b='npm run build'
-alias l='npm run lint'
-alias s='npm run start'
-alias t='npm run test'
-alias u='npm run update'
+alias b="npm run build"
+alias l="npm run lint"
+alias s="npm run start"
+alias t="npm run test"
+alias u="npm run update"
 
 # Load environment variables.
 source ~/.env

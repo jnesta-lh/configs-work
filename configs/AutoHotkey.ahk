@@ -14,10 +14,10 @@
 ; --------------------
 
 ^`::{
-  if (WinExist("ahk_exe chrome.exe")) {
-    WinActivate("ahk_exe chrome.exe")
+  if (WinExist("ahk_exe msedge.exe")) {
+    WinActivate("ahk_exe msedge.exe")
   } else {
-    Run("C:\Program Files\Google\Chrome\Application\chrome.exe")
+    Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
   }
 }
 
@@ -37,11 +37,15 @@
   }
 }
 
-^1::{
-  if (WinExist("ahk_exe brave.exe")) {
-    WinActivate("ahk_exe brave.exe")
+;^1::{}
+
+;^2::{}
+
+^3::{
+  if (WinExist("ahk_exe RemoteDesktopManager.exe")) {
+    WinActivate("ahk_exe RemoteDesktopManager.exe")
   } else {
-    Run("C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe")
+    Run("C:\Program Files\Devolutions\Remote Desktop Manager\RemoteDesktopManager.exe")
   }
 }
 
@@ -75,11 +79,21 @@
   }
 }
 
+;^7::{}
+
 ^8::{
   if (WinExist("ahk_exe ms-teams.exe")) {
     WinActivate "ahk_exe ms-teams.exe"
   } else {
     Run(A_AppData . "\..\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe")
+  }
+}
+
+^9::{
+  if (WinExist("ahk_exe chrome.exe")) {
+    WinActivate("ahk_exe chrome.exe")
+  } else {
+    Run("C:\Program Files\Google\Chrome\Application\chrome.exe")
   }
 }
 
