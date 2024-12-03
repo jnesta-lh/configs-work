@@ -95,11 +95,11 @@ gbc() (
 
   echo
   echo "Current git branches:"
-  git branch
+  gbl
 )
 
 # "gbl" is short for "git branch list". ("gb" is already taken by another command.)
-alias gbl="git branch"
+alias gbl="git --no-pager branch"
 
 # "gc" is short for "git commit", which will perform all the steps involved in making a new commit
 # with all unstaged changes.
