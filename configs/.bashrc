@@ -1,8 +1,9 @@
-# Fix self-signed certs with Node.js applications.
-export NODE_EXTRA_CA_CERTS="C:\\tls\\BEDROOTCA001.crt"
+export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
 
-# Bitwarden CLI
-export BW_SESSION="DnRtamt/07/0xa7pbk4kRcYe7A5UH8Zad/VACVDDFGaCU0N2VurqZvT3nxGlZjsq1/CInf5nctMkbaThoicsxA=="
+# Fix self-signed certs.
+export NODE_EXTRA_CA_CERTS="$COMPANY_CERT_PATH"
+export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
+export REQUESTS_CA_BUNDLE="/c/Program Files (x86)/Microsoft SDKs/Azure/CLI2/lib/site-packages/certifi/cacert.pem"
 
 # Terraform auto-complete.
 complete -C "C:\\Users\\$USERNAME\\AppData\Local\\Microsoft\\WinGet\\Packages\\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\\terraform.exe" terraform.exe
@@ -95,7 +96,7 @@ gbc() (
 
   echo
   echo "Current git branches:"
-  gbl
+  git --no-pager branch # Cannot use "gbl" because there is no function hoisting in Bash.
 )
 
 # "gbl" is short for "git branch list". ("gb" is already taken by another command.)

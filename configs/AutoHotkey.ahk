@@ -79,7 +79,13 @@
   }
 }
 
-;^7::{}
+^7::{
+  if (WinExist("ahk_exe WinSCP.exe")) {
+    WinActivate("ahk_exe WinSCP.exe")
+  } else {
+    Run(A_AppData . "\..\Local\Programs\WinSCP\WinSCP.exe")
+  }
+}
 
 ^8::{
   if (WinExist("ahk_exe ms-teams.exe")) {
