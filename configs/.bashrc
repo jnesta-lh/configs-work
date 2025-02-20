@@ -34,8 +34,15 @@ gb() (
   fi
 
   if [ -z "${1:-}" ]; then
-    echo "Error: Branch name is required. Usage: gb <branch-name>"
+    echo "Error: Branch name description is required. Usage: gb <branch-description> [application-name]"
     return 1
+  fi
+  local description = "$1";
+
+  if [ -z "${2:-}" ]; then
+    local application_name = "misc"
+  else
+    local application_name = "$2"
   fi
 
   if [ -z "$(git status --porcelain)" ]; then
@@ -59,7 +66,7 @@ gb() (
   fi
 
   git pull
-  git switch -c "feature/misc/$USERNAME/$1"
+  git switch -c "feature/$application_name/$USERNAME/$description"
   git push
 
   if [ "$stashed_before_branch" = true ]; then
