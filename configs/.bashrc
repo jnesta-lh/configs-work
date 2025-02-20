@@ -72,6 +72,8 @@ gb() (
   if [ "$stashed_before_branch" = true ]; then
     git stash pop
   fi
+
+  git branch
 )
 
 # "gbc" is short for "git branch clean", which will remove all local branches that do not exist on
