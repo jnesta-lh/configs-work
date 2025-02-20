@@ -7,9 +7,9 @@ export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
 export NODE_EXTRA_CA_CERTS="$COMPANY_CERT_PATH"
 export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
 
-# --------------
-# Other Commands
-# --------------
+# ----------------------
+# Miscellaneous Commands
+# ----------------------
 
 # A better "ll" alias that shows hidden files.
 alias ll="ls -la"
@@ -221,7 +221,7 @@ gsm() (
 )
 
 # "gsw" is short for "git switch". It requires an argument of the number corresponding to the
-# alphbetical local branch. ("gs" is already taken by another command.)
+# alphabetical local branch. ("gs" is already taken by another command.)
 gsw() (
   set -euo pipefail # Exit on errors and undefined variables.
 
@@ -340,9 +340,9 @@ alias pd="pulumi destroy"
 # "pr" is short for "pulumi refresh".
 alias pr="pulumi refresh"
 
-# --------------
-# Other Commands
-# --------------
+# ----------------------
+# Miscellaneous Commands
+# ----------------------
 
 # "r" is short for switching to the repositories directory.
 alias r="cd /c/Users/$USERNAME/Repositories"
