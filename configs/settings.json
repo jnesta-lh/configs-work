@@ -4,8 +4,7 @@
   // Vanilla settings
   // ----------------
 
-  // For presenting.
-  "editor.fontSize": 18, // 14 is default.
+  "editor.fontSize": 14, // 14 is default.
 
   // This matches the Airbnb JavaScript style guide.
   "editor.rulers": [100],

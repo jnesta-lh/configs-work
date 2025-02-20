@@ -59,7 +59,7 @@ gb() (
   fi
 
   git pull
-  git switch -c "feature/$USERNAME/$1"
+  git switch -c "feature/misc/$USERNAME/$1"
   git push
 
   if [ "$stashed_before_branch" = true ]; then
@@ -99,6 +99,34 @@ gbc() (
   git --no-pager branch # Cannot use "gbl" because there is no function hoisting in Bash.
 )
 
+# "gbr" is short for "git branch rename", which will rename the application portion of the branch
+# name.
+gbr() (
+  set -euo pipefail # Exit on errors and undefined variables.
+
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not inside a Git repository."
+    return 1
+  fi
+
+  if [ $# -eq 0 ]; then
+    echo "Error: Must provide a new application name like \"misc\"."
+    return 1
+  fi
+  local app_name="$1"
+
+  local old_branch_name=$(git branch --show-current) # e.g. "feature/app1/alice/fix-bug"
+  echo "Old branch name: $old_branch_name"
+  local new_branch_name=$(echo "$old_branch_name" | sed -E "s~^([^/]+/)([^/]+)(/.*$)~\1${app_name}\3~") # e.g. "feature/app2/alice/fix-bug"
+  echo "New branch name: $new_branch_name"
+
+  git switch -c "$new_branch_name"
+  git push
+  git branch -D $old_branch_name # Delete the old branch locally.
+  git push origin :$old_branch_name # Delete the old branch on the remote.
+  gpr
+)
+
 # "gbl" is short for "git branch list". ("gb" is already taken by another command.)
 alias gbl="git --no-pager branch"
 
@@ -113,13 +141,13 @@ gc() (
   fi
 
   if [ $# -eq 0 ]; then
-    COMMIT_MSG="update"
+    local commit_msg="update"
   else
-    COMMIT_MSG="$*"
+    local commit_msg="$*"
   fi
 
   git add --all
-  git commit -m "$COMMIT_MSG"
+  git commit -m "$commit_msg"
   git pull
   git push
 
