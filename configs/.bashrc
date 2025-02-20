@@ -37,12 +37,12 @@ gb() (
     echo "Error: Branch name description is required. Usage: gb <branch-description> [application-name]"
     return 1
   fi
-  local description = "$1";
+  local description="$1"
 
   if [ -z "${2:-}" ]; then
-    local application_name = "misc"
+    local application_name="misc"
   else
-    local application_name = "$2"
+    local application_name="$2"
   fi
 
   if [ -z "$(git status --porcelain)" ]; then
