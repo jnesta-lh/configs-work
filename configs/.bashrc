@@ -73,7 +73,7 @@ gb() (
     git stash pop
   fi
 
-  git branch
+  git --no-pager branch
 )
 
 # "gbc" is short for "git branch clean", which will remove all local branches that do not exist on
@@ -105,7 +105,7 @@ gbc() (
 
   echo
   echo "Current git branches:"
-  git --no-pager branch # Cannot use "gbl" because there is no function hoisting in Bash.
+  git --no-pager branch
 )
 
 # "gbr" is short for "git branch rename", which will rename the application portion of the branch
