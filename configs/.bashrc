@@ -1,22 +1,22 @@
-export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
+# ---------------------
+# Environment Variables
+# ---------------------
 
 # Fix self-signed certs.
+export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
 export NODE_EXTRA_CA_CERTS="$COMPANY_CERT_PATH"
 export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
-export REQUESTS_CA_BUNDLE="/c/Program Files (x86)/Microsoft SDKs/Azure/CLI2/lib/site-packages/certifi/cacert.pem"
 
-# Terraform auto-complete.
-complete -C "C:\\Users\\$USERNAME\\AppData\Local\\Microsoft\\WinGet\\Packages\\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\\terraform.exe" terraform.exe
-
-# Terragrunt auto-complete.
-complete -C "C:\\Users\\$USERNAME\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gruntwork.Terragrunt_Microsoft.Winget.Source_8wekyb3d8bbwe\\terragrunt.exe" terragrunt
-
-# asdf
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
+# --------------
+# Other Commands
+# --------------
 
 # A better "ll" alias that shows hidden files.
 alias ll="ls -la"
+
+# ------------
+# Git Commands
+# ------------
 
 # "ga" is short for "git add --all".
 alias ga="git add --all"
@@ -324,6 +324,10 @@ gtc() (
 # "gu" is short for "git push".
 alias gu="git push"
 
+# ---------------
+# Pulumi Commands
+# ---------------
+
 # "p" is short for "pulumi".
 alias p="pulumi"
 
@@ -336,8 +340,16 @@ alias pd="pulumi destroy"
 # "pr" is short for "pulumi refresh".
 alias pr="pulumi refresh"
 
+# --------------
+# Other Commands
+# --------------
+
 # "r" is short for switching to the repositories directory.
 alias r="cd /c/Users/$USERNAME/Repositories"
+
+# ------------------
+# Terraform Commands
+# ------------------
 
 # "ta" is short for "terraform apply".
 alias ta="terraform apply"
@@ -360,12 +372,22 @@ alias tm="cd /c/Users/$USERNAME/Repositories/infrastructure/0_Global_Library/ter
 # "tv" is short for "terraform validate".
 alias tv="terraform validate"
 
-# npm run shortcuts
+# ------------
+# npm Commands
+# ------------
+
 alias b="npm run build"
 alias l="npm run lint"
 alias s="npm run start"
 alias t="npm run test"
 alias u="npm run update"
+
+# -----
+# Other
+# -----
+
+# Terraform auto-complete.
+complete -C "C:\\Users\\$USERNAME\\AppData\Local\\Microsoft\\WinGet\\Packages\\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\\terraform.exe" terraform.exe
 
 # Load environment variables.
 source ~/.env
