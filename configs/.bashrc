@@ -64,6 +64,8 @@ alias u="npm run update"
 alias ga="git add --all"
 
 # - "gb" is short for creating a new git branch, which is a common coding task.
+# - For example, "gb fix-bug LogixCodify" would create a branch named
+#   "feature/LogixCodify/[username]/fix-bug".
 # - We cannot use a positional argument in an alias, so we create a function instead.
 # - Doing a push is important after creating a new branch because it prevents subsequent `git pull`
 #   calls from failing.
