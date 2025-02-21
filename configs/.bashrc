@@ -110,7 +110,7 @@ gb() (
   fi
 
   git pull
-  git switch -c "feature/$application_name/$USERNAME/$description"
+  git switch --create "feature/$application_name/$USERNAME/$description"
   git push
 
   if [[ "$stashed_before_branch" = true ]]; then
@@ -173,7 +173,7 @@ gbr() (
   local new_branch_name=$(echo "$old_branch_name" | sed -E "s~^([^/]+/)([^/]+)(/.*$)~\1${app_name}\3~") # e.g. "feature/app2/alice/fix-bug"
   echo "New branch name: $new_branch_name"
 
-  git switch -c "$new_branch_name"
+  git switch --create "$new_branch_name"
   git push
   git branch -D $old_branch_name # Delete the old branch locally.
   git push origin :$old_branch_name # Delete the old branch on the remote.
