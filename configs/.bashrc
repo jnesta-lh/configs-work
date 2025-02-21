@@ -10,6 +10,9 @@ else
 fi
 export NODE_EXTRA_CA_CERTS="$COMPANY_CERT_PATH"
 export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
+if [[ ! -f "/etc/os-release" ]]; then
+  export REQUESTS_CA_BUNDLE="/c/Program Files (x86)/Microsoft SDKs/Azure/CLI2/lib/site-packages/certifi/cacert.pem"
+fi
 
 # Load secrets.
 if [[ -f "~/.env" ]]; then
