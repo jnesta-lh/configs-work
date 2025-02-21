@@ -99,5 +99,8 @@
   "redhat.telemetry.enabled": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "chat.commandCenter.enabled": false
+  "chat.commandCenter.enabled": false,
+  "remote.SSH.remotePlatform": {
+    "ubuntu-hyper-v": "linux"
+  }
 }

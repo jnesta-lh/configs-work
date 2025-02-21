@@ -3,9 +3,18 @@
 # ---------------------
 
 # Fix self-signed certs.
-export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
+if [[ -f "/etc/os-release" ]]; then
+  export COMPANY_CERT_PATH="/usr/local/share/ca-certificates/BEDROOTCA001.crt"
+else
+  export COMPANY_CERT_PATH="/c/tls/BEDROOTCA001.crt"
+fi
 export NODE_EXTRA_CA_CERTS="$COMPANY_CERT_PATH"
 export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
+
+# Load secrets.
+if [[ -f "~/.env" ]]; then
+  source ~/.env
+fi
 
 # ----------------------
 # Miscellaneous Commands
@@ -13,6 +22,39 @@ export CURL_CA_BUNDLE="$COMPANY_CERT_PATH"
 
 # A better "ll" alias that shows hidden files.
 alias ll="ls -la"
+
+# "r" is short for switching to the repositories directory.
+alias r="cd /c/Users/$USERNAME/Repositories"
+
+# "o" is short for open a URL in a browser.
+o() (
+  set -euo pipefail # Exit on errors and undefined variables.
+
+  if [[ -z "${1:-}" ]]; then
+    echo "Error: URL is required. Usage: o <url>"
+    return 1
+  fi
+  local url="$1"
+
+  if ! command -v start >/dev/null 2>&1; then
+    echo "$url"
+  elif [[ ${BROWSER:-} == "chrome" ]]; then
+    start chrome "$url"
+  else
+    start microsoft-edge:"$url"
+  fi
+)
+
+# ------------
+# npm Commands
+# ------------
+
+alias b="npm run build"
+alias l="npm run lint"
+alias p="npm run publish"
+alias s="npm run start"
+alias t="npm run test"
+alias u="npm run update"
 
 # ------------
 # Git Commands
@@ -33,19 +75,19 @@ gb() (
     return 1
   fi
 
-  if [ -z "${1:-}" ]; then
+  if [[ -z "${1:-}" ]]; then
     echo "Error: Branch name description is required. Usage: gb <branch-description> [application-name]"
     return 1
   fi
   local description="$1"
 
-  if [ -z "${2:-}" ]; then
+  if [[ -z "${2:-}" ]]; then
     local application_name="misc"
   else
     local application_name="$2"
   fi
 
-  if [ -z "$(git status --porcelain)" ]; then
+  if [[ -z "$(git status --porcelain)" ]]; then
     local stashed_before_branch=false
   else
     git stash push -m "Auto-stash before creating a new git branch"
@@ -69,7 +111,7 @@ gb() (
   git switch -c "feature/$application_name/$USERNAME/$description"
   git push
 
-  if [ "$stashed_before_branch" = true ]; then
+  if [[ "$stashed_before_branch" = true ]]; then
     git stash pop
   fi
 
@@ -118,7 +160,7 @@ gbr() (
     return 1
   fi
 
-  if [ $# -eq 0 ]; then
+  if [[ $# -eq 0 ]]; then
     echo "Error: Must provide a new application name like \"misc\"."
     return 1
   fi
@@ -149,7 +191,7 @@ gc() (
     return 1
   fi
 
-  if [ $# -eq 0 ]; then
+  if [[ $# -eq 0 ]]; then
     local commit_msg="update"
   else
     local commit_msg="$*"
@@ -189,11 +231,7 @@ gcs() (
     return 1
   fi
 
-  if [[ ${BROWSER:-} == "chrome" ]]; then
-    start chrome "$commit_url"
-  else
-    start microsoft-edge:"$commit_url"
-  fi
+  o "$commit_url"
 )
 
 # "gd" is shrot for "git diff".
@@ -257,7 +295,7 @@ gsw() (
 
     local branch_number=$1
     local selected_branch=$(git branch | grep -v '^*' | sort | sed -n "${branch_number}p" | tr -d ' ')
-    if [ -n "$selected_branch" ]; then
+    if [[ -n "$selected_branch" ]]; then
       git switch "$selected_branch"
     else
       echo "Error: Branch number $branch_number does not exist."
@@ -295,11 +333,7 @@ gpr() (
     return 1
   fi
 
-  if [[ ${BROWSER:-} == "chrome" ]]; then
-    start chrome "$pr_url"
-  else
-    start microsoft-edge:"$pr_url"
-  fi
+  o "$pr_url"
 )
 
 # "gs" is short for "git status".
@@ -337,9 +371,6 @@ alias gu="git push"
 # Pulumi Commands
 # ---------------
 
-# "p" is short for "pulumi".
-alias p="pulumi"
-
 # "pu" is short for "pulumi up".
 alias pu="pulumi up"
 
@@ -348,13 +379,6 @@ alias pd="pulumi destroy"
 
 # "pr" is short for "pulumi refresh".
 alias pr="pulumi refresh"
-
-# ----------------------
-# Miscellaneous Commands
-# ----------------------
-
-# "r" is short for switching to the repositories directory.
-alias r="cd /c/Users/$USERNAME/Repositories"
 
 # ------------------
 # Terraform Commands
@@ -380,23 +404,3 @@ alias tm="cd /c/Users/$USERNAME/Repositories/infrastructure/0_Global_Library/ter
 
 # "tv" is short for "terraform validate".
 alias tv="terraform validate"
-
-# ------------
-# npm Commands
-# ------------
-
-alias b="npm run build"
-alias l="npm run lint"
-alias s="npm run start"
-alias t="npm run test"
-alias u="npm run update"
-
-# -----
-# Other
-# -----
-
-# Terraform auto-complete.
-complete -C "C:\\Users\\$USERNAME\\AppData\Local\\Microsoft\\WinGet\\Packages\\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe\\terraform.exe" terraform.exe
-
-# Load environment variables.
-source ~/.env
