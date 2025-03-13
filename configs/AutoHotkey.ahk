@@ -1,3 +1,12 @@
+; --------
+; SETTINGS
+; --------
+
+#Warn ; Enable all warnings.
+SetKeyDelay(-1) ; No delay
+SetWinDelay(-1) ; No delay
+SetTitleMatchMode(1) ; A window's title must start with the specified WinTitle to be a match.
+
 ; ------------
 ; CORE HOTKEYS
 ; ------------
@@ -85,12 +94,12 @@
 
 ; From: https://www.autohotkey.com/boards/viewtopic.php?t=113911
 SortNumArray(arr) {
-	str := ""
-	for k, v in arr {
-		str .= v "`n"
+  str := ""
+  for k, v in arr {
+    str .= v "`n"
   }
-	str := Sort(RTrim(str, "`n"), "N")
-	return StrSplit(str, "`n")
+  str := Sort(RTrim(str, "`n"), "N")
+  return StrSplit(str, "`n")
 }
 
 ; --------------------
