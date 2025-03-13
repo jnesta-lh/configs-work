@@ -10,7 +10,6 @@ cd "$DIR"
 
 DST_DIR="$DIR/configs"
 
-cp "/c/Users/jnesta/.bash_proflie" "$DST_DIR/"
 cp "/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/Scripts/AutoHotkey.ahk" "$DST_DIR/"
 cp "/c/Users/jnesta/AppData/Roaming/Code/User/settings.json" "$DST_DIR/"
 cp "/c/Users/jnesta/AppData/Roaming/Code/User/keybindings.json" "$DST_DIR/"

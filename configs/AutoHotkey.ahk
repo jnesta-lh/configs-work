@@ -9,6 +9,90 @@
 
 #Down::WinMinimize("A")
 
+; Cycle program windows forward.
+#Tab::{
+  activeProcessName := WinGetProcessName("A")
+  windowIDs := WinGetList("ahk_exe " activeProcessName)
+
+  if (windowIDs.Length <= 1) {
+    return
+  }
+
+  sortedWindowIDs := SortNumArray(windowIDs)
+  activeWindowID := WinGetID("A")
+  activeWindowIndex := 0
+
+  for index, windowID in sortedWindowIDs
+  {
+    if (windowID = activeWindowID)
+    {
+      activeWindowIndex := index
+      break
+    }
+  }
+
+  if (activeWindowIndex = 0)
+  {
+    return
+  }
+
+  nextWindowIndex := activeWindowIndex + 1
+  if (nextWindowIndex > sortedWindowIDs.Length)
+  {
+    nextWindowIndex := 1
+  }
+
+  nextWindowID := sortedWindowIDs[nextWindowIndex]
+  WinActivate("ahk_id " nextWindowID)
+}
+
+; Cycle program windows backward.
+#+Tab::{
+  activeProcessName := WinGetProcessName("A")
+  windowIDs := WinGetList("ahk_exe " activeProcessName)
+
+  if (windowIDs.Length <= 1) {
+    return
+  }
+
+  sortedWindowIDs := SortNumArray(windowIDs)
+  activeWindowID := WinGetID("A")
+  activeWindowIndex := 0
+
+  for index, windowID in sortedWindowIDs
+  {
+    if (windowID = activeWindowID)
+    {
+      activeWindowIndex := index
+      break
+    }
+  }
+
+  if (activeWindowIndex = 0)
+  {
+    return
+  }
+
+  previousWindowIndex := activeWindowIndex - 1
+  if (previousWindowIndex < 1)
+  {
+    previousWindowIndex := sortedWindowIDs.Length
+  }
+
+  previousWindowID := sortedWindowIDs[previousWindowIndex]
+  WinActivate("ahk_id " previousWindowID)
+}
+
+; From: https://www.autohotkey.com/boards/viewtopic.php?t=113911
+SortNumArray(arr) {
+	str := ""
+	for k, v in arr {
+		str .= v "`n"
+  }
+	str := Sort(RTrim(str, "`n"), "N")
+	return StrSplit(str, "`n")
+}
+
 ; --------------------
 ; OPEN PROGRAM HOTKEYS
 ; --------------------
@@ -79,19 +163,11 @@
   }
 }
 
-^7::{
-  if (WinExist("ahk_exe WinSCP.exe")) {
-    WinActivate("ahk_exe WinSCP.exe")
-  } else {
-    Run(A_AppData . "\..\Local\Programs\WinSCP\WinSCP.exe")
-  }
-}
-
 ^8::{
   if (WinExist("ahk_exe ms-teams.exe")) {
     WinActivate "ahk_exe ms-teams.exe"
   } else {
-    Run(A_AppData . "\..\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe")
+    Run(A_AppData . "\..\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe") ; cspell:disable-line
   }
 }
 
@@ -107,9 +183,14 @@
   if (WinExist("ahk_exe olk.exe")) {
     WinActivate "ahk_exe olk.exe"
   } else {
-    Run("C:\Program Files\WindowsApps\Microsoft.OutlookForWindows_1.2024.619.100_x64__8wekyb3d8bbwe\olk.exe")
+    Run("C:\Program Files\WindowsApps\Microsoft.OutlookForWindows_1.2024.619.100_x64__8wekyb3d8bbwe\olk.exe") ; cspell:disable-line
   }
 }
 
 ^+k::Run("C:\Users\jnesta\OneDrive - LogixHealth Inc\Documents\KiTTY\kitty_portable.exe")
 ^+s::Run(A_AppData . "\..\Local\Programs\WinSCP\WinSCP.exe")
+
+; Win+Z for debugging
+#z::{
+  Run(A_ComSpec " /k whoami")
+}
