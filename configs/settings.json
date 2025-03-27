@@ -102,5 +102,6 @@
   "chat.commandCenter.enabled": false,
   "remote.SSH.remotePlatform": {
     "ubuntu-hyper-v": "linux"
-  }
+  },
+  "python.createEnvironment.trigger": "off"
 }
