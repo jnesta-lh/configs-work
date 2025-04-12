@@ -5,7 +5,6 @@
 #Warn ; Enable all warnings.
 SetKeyDelay(-1) ; No delay
 SetWinDelay(-1) ; No delay
-SetTitleMatchMode(1) ; A window's title must start with the specified WinTitle to be a match.
 
 ; ------------
 ; CORE HOTKEYS
@@ -201,5 +200,43 @@ SortNumArray(arr) {
 
 ; Win+Z for debugging
 #z::{
-  Run(A_ComSpec " /k whoami")
+}
+
+; -----------------------
+; PALO ALTO GLOBALPROTECT
+; -----------------------
+
+SetTitleMatchMode(3) ; A window's title must exactly match.
+lastClickTime1 := 0
+lastClickTime2 := 0
+autoClickTimeout := 60000 ; 1 minute
+SetTimer CheckForGlobalProtectLogin, 10 ; Every millisecond.
+
+CheckForGlobalProtectLogin() {
+  global lastClickTime1
+  global lastClickTime2
+
+  if WinExist("GlobalProtect ahk_exe PanGPA.exe") {
+    text := ControlGetText("Button2", "GlobalProtect ahk_exe PanGPA.exe")
+    if (text = "Connect") {
+      currentTime := A_TickCount
+      if (currentTime - lastClickTime1 >= autoClickTimeout) {
+        lastClickTime1 := currentTime
+        ControlClick("Button2", "GlobalProtect ahk_exe PanGPA.exe")
+      }
+    }
+  }
+
+  if WinExist("GlobalProtect Login ahk_exe PanGPA.exe") {
+    currentTime := A_TickCount
+    if (currentTime - lastClickTime2 >= autoClickTimeout) {
+      lastClickTime2 := currentTime
+      ; First, we resize it to the minimum size in order to work around the
+      ; white screen bug.
+      WinMove(0, 0, 1, 1, "GlobalProtect Login ahk_exe PanGPA.exe")
+      WinMove(0, 0, 500, 550, "GlobalProtect Login ahk_exe PanGPA.exe")
+      Sleep(10)
+      ControlClick("x200 y180", "GlobalProtect Login ahk_exe PanGPA.exe")
+    }
+  }
 }
