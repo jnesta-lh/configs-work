@@ -111,13 +111,11 @@ SortNumArray(arr) {
   if (WinExist("ahk_exe msedge.exe")) {
     edgeWindows := WinGetList("ahk_exe msedge.exe")
 
-    if (edgeWindows.Length >= 2) {
-      for window in edgeWindows {
-        title := WinGetTitle(window)
-        if (!InStr(title, "Bitwarden")) {
-          WinActivate(window)
-          return
-        }
+    for window in edgeWindows {
+      title := WinGetTitle(window)
+      if (!InStr(title, "Bitwarden")) {
+        WinActivate(window)
+        return
       }
     }
 
@@ -182,6 +180,12 @@ SortNumArray(arr) {
     WinActivate("ahk_exe Code.exe")
   } else {
     Run(A_AppData . "\..\Local\Programs\Microsoft VS Code\Code.exe")
+  }
+}
+
+^7::{
+  if (WinExist("Bitwarden ahk_exe msedge.exe")) {
+    WinActivate("Bitwarden ahk_exe msedge.exe")
   }
 }
 
