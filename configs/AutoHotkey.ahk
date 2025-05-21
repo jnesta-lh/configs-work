@@ -107,6 +107,18 @@ SortNumArray(arr) {
 
 ^`::{
   if (WinExist("ahk_exe msedge.exe")) {
+    edgeWindows := WinGetList("ahk_exe msedge.exe")
+
+    if (edgeWindows.Length >= 2) {
+      for window in edgeWindows {
+        title := WinGetTitle(window)
+        if (!InStr(title, "Bitwarden")) {
+          WinActivate(window)
+          return
+        }
+      }
+    }
+
     WinActivate("ahk_exe msedge.exe")
   } else {
     Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
@@ -198,10 +210,6 @@ SortNumArray(arr) {
 ^+k::Run("C:\Users\jnesta\OneDrive - LogixHealth Inc\Documents\KiTTY\kitty_portable.exe")
 ^+s::Run(A_AppData . "\..\Local\Programs\WinSCP\WinSCP.exe")
 
-; Win+Z for debugging
-#z::{
-}
-
 ; -----------------------
 ; PALO ALTO GLOBALPROTECT
 ; -----------------------
@@ -239,4 +247,12 @@ CheckForGlobalProtectLogin() {
       ControlClick("x200 y180", "GlobalProtect Login ahk_exe PanGPA.exe")
     }
   }
+}
+
+; -------
+; TESTING
+; -------
+
+#z::{
+  ; TODO
 }
