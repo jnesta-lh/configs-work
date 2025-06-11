@@ -11,8 +11,8 @@ cd "$DIR"
 DST_DIR="$DIR/configs"
 
 cp "/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/Scripts/AutoHotkey.ahk" "$DST_DIR/"
-cp "/c/Users/jnesta/AppData/Roaming/Code/User/settings.json" "$DST_DIR/"
-cp "/c/Users/jnesta/AppData/Roaming/Code/User/keybindings.json" "$DST_DIR/"
+cp "/c/Users/jnesta/AppData/Roaming/Code/User/settings.json" "$DST_DIR/vscode/"
+cp "/c/Users/jnesta/AppData/Roaming/Code/User/keybindings.json" "$DST_DIR/vscode/"
 
 git add --all && git commit -m "updates" && git pull && git push
 
