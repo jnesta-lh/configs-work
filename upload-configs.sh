@@ -13,6 +13,7 @@ DST_DIR="$DIR/configs"
 cp "/c/Users/jnesta/OneDrive - LogixHealth Inc/Documents/Scripts/AutoHotkey.ahk" "$DST_DIR/"
 cp "/c/Users/jnesta/AppData/Roaming/Code/User/settings.json" "$DST_DIR/vscode/"
 cp "/c/Users/jnesta/AppData/Roaming/Code/User/keybindings.json" "$DST_DIR/vscode/"
+cp "/c/Users/jnesta/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" "$DST_DIR/terminal/" # cspell:disable-line
 
 git add --all && git commit -m "updates" && git pull && git push
 
