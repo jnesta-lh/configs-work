@@ -18,7 +18,6 @@ SetWinDelay(-1) ; No delay
 #Down::WinMinimize("A")
 
 ; Cycle program windows forward.
-; (This requires Snap Assist to be disabled.)
 #Tab::{
   activeProcessName := WinGetProcessName("A")
   windowIDs := WinGetList("ahk_exe " activeProcessName)
@@ -56,7 +55,6 @@ SetWinDelay(-1) ; No delay
 }
 
 ; Cycle program windows backward.
-; (This requires Snap Assist to be disabled.)
 #+Tab::{
   activeProcessName := WinGetProcessName("A")
   windowIDs := WinGetList("ahk_exe " activeProcessName)
